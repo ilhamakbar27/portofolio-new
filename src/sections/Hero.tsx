@@ -34,7 +34,7 @@ const Hero: FC = () => {
         delay: stagger(0.2),
       }
     );
-  }, []);
+  }, [titleAnimate, titleScope]);
 
   return (
     <section>

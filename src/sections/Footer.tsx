@@ -32,7 +32,7 @@ const Footer: FC = () => {
           <div className="grid  md:grid-cols-3  md:items-center">
             <div className="md:col-span-2">
               <h2 className="text-4xl lg:text-8xl md:text-7xl mt-8 font-extralight">
-                Enough talk, let's make somethng great together.
+                Enough talk, let&apos;s make something great together.
               </h2>
               <Button
                 variant="secondary"
