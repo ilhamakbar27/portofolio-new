@@ -12,10 +12,10 @@ import {
   useVelocity,
   useSpring,
   AnimatePresence,
-  useAnimate,
+  
 } from "motion/react";
 import Testimonial from "@/components/Testimonial";
-import SplitType from "split-type";
+
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const testimonials = [
   {

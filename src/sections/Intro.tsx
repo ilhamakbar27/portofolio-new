@@ -5,7 +5,7 @@ import { FC, useEffect, useRef } from "react";
 
 const Intro: FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { scope, entranceAnimation, exitAnimation } = useTextReveal();
+  const { scope, entranceAnimation } = useTextReveal();
   const inView = useInView(scope, {
     once: true,
   });
@@ -14,7 +14,7 @@ const Intro: FC = () => {
     if (inView) {
       entranceAnimation();
     }
-  }, [inView]);
+  }, [inView, entranceAnimation]);
 
   return (
     <section

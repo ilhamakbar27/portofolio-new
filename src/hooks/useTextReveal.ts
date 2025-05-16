@@ -1,5 +1,5 @@
 import { useAnimate, stagger } from "motion/react";
-import { use, useEffect } from "react";
+import {  useEffect } from "react";
 import SplitType from "split-type";
 
 const useTextReveal = () => {

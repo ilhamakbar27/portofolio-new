@@ -1,9 +1,8 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React, { HTMLAttributes, useEffect } from "react";
-import SplitType from "split-type";
-import { twMerge } from "tailwind-merge";
-import { useAnimate, usePresence, motion } from "motion/react";
+
+import {  usePresence, motion } from "motion/react";
 import useTextReveal from "@/hooks/useTextReveal";
 
 const Testimonial = (
@@ -55,7 +54,8 @@ const Testimonial = (
   return (
     <div
       key={name}
-      className="grid md:grid-cols-5 md:items-center lg:gap-16  gap-8"
+      className={`grid md:grid-cols-5 md:items-center lg:gap-16 gap-8 ${className ?? ''}`}
+      {...rest}
     >
       <div className="aspect-square md:aspect-[9/16] md:col-span-2 relative ">
         <motion.div
