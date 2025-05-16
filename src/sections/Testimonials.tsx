@@ -1,33 +1,43 @@
 "use client";
 
-import { FC, useRef } from "react";
-import image1 from "@/assets/images/testimonial-1.jpg";
-import image2 from "@/assets/images/testimonial-2.jpg";
+import { FC, useRef, useState } from "react";
+import image1 from "@/assets/images/testi-1.png";
+import image2 from "@/assets/images/testi-2.png";
 import image3 from "@/assets/images/testimonial-3.jpg";
-import Image from "next/image";
-import { useScroll, motion, useTransform } from "motion/react";
+
+import {
+  useScroll,
+  motion,
+  useTransform,
+  useVelocity,
+  useSpring,
+  AnimatePresence,
+  useAnimate,
+} from "motion/react";
+import Testimonial from "@/components/Testimonial";
+import SplitType from "split-type";
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const testimonials = [
   {
-    name: "Sarah Chen",
+    name: "Ryan Pratama",
     company: "Pixel Perfect",
     role: "Head of Design",
     quote:
-      "Alex's expertise in both technical development and design created a beautiful, high-performing website.",
+      "Ilham's expertise in both technical development and design created a beautiful, high-performing website.",
     image: image1,
     imagePositionY: 0.2,
   },
   {
-    name: "Marcus Rodriguez",
+    name: "Alvin Pratama",
     company: "Craft Coffee Co.",
     role: "Founder",
     quote:
-      "Alex transformed our boutique coffee brand with a website that perfectly balances aesthetics and functionality.",
+      "Ilham transformed our boutique coffee brand with a website that perfectly balances aesthetics and functionality.",
     image: image2,
     imagePositionY: 0.1,
   },
   {
-    name: "Emily Watson",
+    name: "Fakhrul",
     company: "Studio Minimal",
     role: "Creative Director",
     quote:
@@ -44,17 +54,56 @@ const Testimonials: FC = () => {
     offset: ["start end", "end start"],
   });
 
-  const transformTop = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const transformBottom = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
-  const testimonialsIndex = 0;
+  // Get velocity from scroll progress
+  const rawScrollVelocity = useVelocity(scrollYProgress);
+
+  // Apply spring physics to smooth out the velocity
+  const scrollVelocity = useSpring(rawScrollVelocity, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Transform velocity to appropriate range for animation with more nuanced values
+  const transformTop = useTransform(
+    scrollVelocity,
+    [-1, -0.5, 0, 0.5, 1],
+    ["7%", "3.5%", "0%", "-3.5%", "-7%"]
+  );
+
+  const transformBottom = useTransform(
+    scrollVelocity,
+    [-1, -0.5, 0, 0.5, 1],
+    ["-7%", "-3.5%", "0%", "3.5%", "7%"]
+  );
+
+  const [testimonialsIndex, setTestimonialIndex] = useState(0);
+  const handleClickPrev = () => {
+    setTestimonialIndex((curr) => {
+      if (curr === 0) {
+        return testimonials.length - 1;
+      }
+      return curr - 1;
+    });
+  };
+
+  const handleClickNext = () => {
+    setTestimonialIndex((curr) => {
+      if (curr === testimonials.length - 1) {
+        return 0;
+      }
+      return curr + 1;
+    });
+  };
   return (
-    <section id="testimonials">
+    <section id="testimonials" ref={titleRef}>
       <h2 className="flex flex-col overflow-hidden lg:text-8xl md:text-7xl text-4xl">
         <motion.span
           className="whitespace-nowrap"
           style={{
             x: transformTop,
           }}
+          transition={{ type: "tween", ease: "easeOut" }}
         >
           Some nice words from my past clients
         </motion.span>
@@ -63,44 +112,35 @@ const Testimonials: FC = () => {
           style={{
             x: transformBottom,
           }}
+          transition={{ type: "tween", ease: "easeOut" }}
         >
           Some nice words from my past clients
         </motion.span>
       </h2>
       <div className="container">
         <div className="mt-20">
-          {testimonials.map(
-            ({ name, company, role, quote, image, imagePositionY }, index) =>
-              index === testimonialsIndex && (
-                <div
-                  key={name}
-                  className="grid md:grid-cols-5 md:items-center lg:gap-16  gap-8"
-                >
-                  <div className="aspect-square md:aspect-[9/16] md:col-span-2 ">
-                    <Image
-                      className="size-full object-cover"
-                      src={image}
-                      alt={name}
-                      style={{
-                        objectPosition: `50% ${imagePositionY * 100}%`,
-                      }}
-                    />
-                  </div>
-                  <blockquote className="md:col-span-3">
-                    <div className="text-3xl md:mt-0 md:text-5xl lg:text-6xl mt-8">
-                      <span>&ldquo;</span>
-                      <span>{quote}</span>
-                    </div>
-                    <cite className="mt-4 md:mt-8 lg:text-xl  md:text-lg not-italic block">
-                      {name}, {role} at {company}
-                    </cite>
-                  </blockquote>
-                </div>
-              )
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            {testimonials.map(
+              ({ name, company, role, quote, image, imagePositionY }, index) =>
+                index === testimonialsIndex && (
+                  <Testimonial
+                    name={name}
+                    company={company}
+                    role={role}
+                    quote={quote}
+                    image={image}
+                    imagePositionY={imagePositionY}
+                    key={name}
+                  />
+                )
+            )}
+          </AnimatePresence>
         </div>
         <div className="mt-6 lg:mt-10 flex gap-4">
-          <button className="border border-stone-400 size-11 inline-flex items-center justify-center rounded-full">
+          <button
+            onClick={handleClickPrev}
+            className="border hover:bg-red-orange-500 border-stone-400 hover:text-white hover:border-red-orange-500 transition-all duration-300 size-11 inline-flex items-center justify-center rounded-full"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -116,7 +156,10 @@ const Testimonials: FC = () => {
               />
             </svg>
           </button>
-          <button className="border border-stone-400 size-11 inline-flex items-center justify-center rounded-full">
+          <button
+            onClick={handleClickNext}
+            className="border border-stone-400 hover:bg-red-orange-500 hover:text-white hover:border-red-orange-500 transition-all duration-300  size-11 inline-flex items-center justify-center rounded-full"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

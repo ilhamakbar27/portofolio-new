@@ -1,4 +1,7 @@
-import { FC } from "react";
+"use client";
+import { AnimatePresence, motion } from "motion/react";
+import { FC, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const faqs = [
@@ -25,21 +28,45 @@ const faqs = [
 ];
 
 const FAQs: FC = () => {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   return (
     <section id="faqs" className="section ">
       <div className="container">
         <h2 className="text-4xl md:text-7xl    lg:text-8xl">FAQs</h2>
         <div className="mt-10 md:mt-16 lg:mt-20">
-          {faqs.map(({ question }) => (
+          {faqs.map(({ question, answer }, faqIndex) => (
             <div
               key={question}
-              className="border-t border-stone-400 border-dotted"
+              className="border-t border-stone-400 border-dotted py-6 md:py-8 lg:py-10 last:border-b relative isolate group/faq"
+              onClick={() => {
+                if (faqIndex === selectedIndex) {
+                  setSelectedIndex(null);
+                } else {
+                  setSelectedIndex(faqIndex);
+                }
+              }}
             >
-              <div className="flex items-center justify-between  md:py-8  gap-4 py-6">
+              <div
+                className={twMerge(
+                  "absolute h-0 w-full bg-stone-300 -z-10 group-hover/faq:h-full bottom-0 left-0  transition-all duration-700",
+                  faqIndex === selectedIndex && "h-full"
+                )}
+              ></div>
+              <div
+                className={twMerge(
+                  "flex items-center justify-between transition-all duration-700 group-hover/faq:lg:px-8 gap-4 ",
+                  faqIndex === selectedIndex && "lg:px-8 "
+                )}
+              >
                 <div className="text-2xl md:text-3xl lg:text-4xl">
                   {question}
                 </div>
-                <div className="rounded-full justify-center shrink-0  items-center size-11 border inline-flex  border-stone-400 ">
+                <div
+                  className={twMerge(
+                    "rounded-full justify-center shrink-0  items-center size-11 border inline-flex  transition duration-300 border-stone-400 ",
+                    faqIndex === selectedIndex && "rotate-45 "
+                  )}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -56,6 +83,19 @@ const FAQs: FC = () => {
                   </svg>
                 </div>
               </div>
+              <AnimatePresence>
+                {faqIndex === selectedIndex && (
+                  <motion.div
+                    className="overflow-hidden lg:px-8"
+                    initial={{ height: 0 }}
+                    exit={{ height: 0 }}
+                    animate={{ height: "auto" }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  >
+                    <p className="text-xl mt-4 ">{answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
