@@ -14,7 +14,7 @@ const Intro: FC = () => {
     if (inView) {
       entranceAnimation();
     }
-  }, [inView]);
+  }, [inView, entranceAnimation]);
 
   return (
     <section

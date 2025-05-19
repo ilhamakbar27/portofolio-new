@@ -54,7 +54,8 @@ const Testimonial = (
   return (
     <div
       key={name}
-      className="grid md:grid-cols-5 md:items-center lg:gap-16  gap-8"
+      className={`grid md:grid-cols-5 md:items-center lg:gap-16 gap-8 ${className ?? ''}`}
+      {...rest}
     >
       <div className="aspect-square md:aspect-[9/16] md:col-span-2 relative ">
         <motion.div
