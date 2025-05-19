@@ -1,13 +1,14 @@
 "use client";
 import Button from "@/components/button";
 import { motion, useAnimate } from "motion/react";
+import Link from "next/link";
 import { FC, MouseEvent, useEffect, useState } from "react";
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const navItems = [
   {
     label: "About",
-    href: "#intro",
+    href: "/about",
   },
   {
     label: "Selected Works",
@@ -119,10 +120,14 @@ const Header: FC = () => {
     e.preventDefault();
     setIsOpen(false);
     const url = new URL(e.currentTarget.href);
-    const hash = url.hash;
-    const target = document.querySelector(hash);
-    if (!target) return;
-    target.scrollIntoView({ behavior: "smooth" });
+    if (url.hash) {
+      const target = document.querySelector(url.hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.location.href = url.pathname;
+    }
   };
 
   return (
@@ -133,7 +138,7 @@ const Header: FC = () => {
       >
         <nav className="mt-20 flex flex-col  ">
           {navItems.map(({ href, label }) => (
-            <a
+            <Link
               href={href}
               className="text-stone-200 group/nav-item relative isolate  py-8 border-t border-stone-800 last:border-b"
               key={label}
@@ -159,7 +164,7 @@ const Header: FC = () => {
                 </svg>
               </div>
               <div className="absolute w-full h-0 bg-stone-800 group-hover/nav-item:h-full transition-all duration-500 bottom-0 -z-10"></div>
-            </a>
+            </Link>
           ))}
         </nav>
       </div>
