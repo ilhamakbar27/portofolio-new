@@ -1,9 +1,8 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React, { HTMLAttributes, useEffect } from "react";
-import SplitType from "split-type";
-import { twMerge } from "tailwind-merge";
-import { useAnimate, usePresence, motion } from "motion/react";
+
+import {  usePresence, motion } from "motion/react";
 import useTextReveal from "@/hooks/useTextReveal";
 
 const Testimonial = (
