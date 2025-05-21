@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { client } from "@/sanity/lib/client";
@@ -133,7 +133,7 @@ export default function BlogPage() {
                 {error.message || "Error loading blog post"}
               </h2>
               <p className="text-red-600 mb-6">
-                We couldn't find the blog post you were looking for.
+                We couldn&apos;t find the blog post you were looking for.
               </p>
               <Link
                 href="/blog"

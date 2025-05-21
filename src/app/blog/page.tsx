@@ -1,5 +1,8 @@
 // import { getAllPosts } from "@/lib/api";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
+
 
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
@@ -41,7 +44,7 @@ const PostSkeleton = () => (
 export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, ] = useState(null);
 
   const query = `*[_type == "post"] | order(publishedAt desc) {
       _id,
@@ -63,11 +66,12 @@ export default function BlogPage() {
       } catch (error) {
         console.log("Post Fetching error", error);
         // setError(error);
+        
         setLoading(false);
       }
     };
     fetchPosts();
-  }, []);
+  }, [query]);
 
   return (
     <>

@@ -154,14 +154,14 @@ const AboutPage: FC = () => {
                   always putting quality first.
                 </p>
                 <p>
-                  My journey in web development began in 2017, and I've since
+                  My journey in web development began in 2017, and I&apos;ve since
                   worked with various technologies focusing on React, Next.js,
-                  and modern JavaScript. I'm particularly interested in
+                  and modern JavaScript. I&apos;m particularly interested in
                   animation, interactivity, and crafting delightful user
                   experiences.
                 </p>
                 <p>
-                  When I'm not coding, you might find me exploring design
+                  When I&apos;m not coding, you might find me exploring design
                   trends, experimenting with new technologies, or seeking
                   inspiration from art, architecture, and nature.
                 </p>
@@ -261,7 +261,7 @@ const AboutPage: FC = () => {
               understanding the core objectives and target audience.
             </p>
             <p>
-              I'm passionate about creating websites that not only look good but
+              I&apos;m passionate about creating websites that not only look good but
               also perform exceptionally well. I pay special attention to web
               performance, accessibility, and creating responsive designs that
               work seamlessly across all devices.

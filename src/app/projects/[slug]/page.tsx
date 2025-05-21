@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, useRef } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { projectsData } from "@/data/projects";
@@ -11,7 +11,7 @@ import { useInView } from "motion/react";
 
 const ProjectDetail: FC = () => {
   const params = useParams();
-  const router = useRouter();
+
   const { slug } = params;
 
   const project = projectsData.find((p) => p.slug === slug);
