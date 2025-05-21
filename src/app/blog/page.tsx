@@ -197,7 +197,7 @@ export default function BlogPage() {
                       }
                     >
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {post.categories?.map((category) => (
+                        {post.categories?.map((category: any) => (
                           <span
                             key={category._key}
                             className="text-xs  py-1  uppercase tracking-wider text-blue-600"
@@ -217,7 +217,10 @@ export default function BlogPage() {
                       </h2>
 
                       <div className="flex items-center text-sm text-stone-500 mb-4">
-                        <span>{post.author?.[internalGroqTypeReferenceTo]|| "Ilham Akbar"}</span>
+                        <span>
+                          {post.author?.[internalGroqTypeReferenceTo] ||
+                            "Ilham Akbar"}
+                        </span>
                         <span className="mx-2">•</span>
                         <time dateTime={post?.publishedAt}>
                           {formatDate(
