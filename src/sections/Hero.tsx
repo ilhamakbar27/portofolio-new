@@ -7,7 +7,11 @@ import Button from "@/components/button";
 import { motion, useScroll, useTransform } from "motion/react";
 import useTextReveal from "@/hooks/useTextReveal";
 
-const Hero: FC = () => {
+interface HeroProps {
+  preloaderComplete?: boolean;
+}
+
+const Hero: FC<HeroProps> = ({ preloaderComplete = true }) => {
   const scrollingDiv = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: scrollingDiv,
@@ -17,26 +21,12 @@ const Hero: FC = () => {
 
   const { scope, entranceAnimation } = useTextReveal();
 
-  // useEffect(() => {
-  //   new SplitType(titleScope.current, {
-  //     types: "lines,words",
-  //     tagName: "span",
-  //   });
-
-  //   titleAnimate(
-  //     titleScope.current.querySelectorAll(".word"),
-  //     {
-  //       transform: "translateY(0)",
-  //     },
-  //     {
-  //       duration: 0.5,
-  //       delay: stagger(0.2),
-  //     }
-  //   );
-  // }, [titleAnimate, titleScope]);
   useEffect(() => {
-    entranceAnimation();
-  }, [entranceAnimation]);
+    // Only trigger entrance animation when preloader is complete
+    if (preloaderComplete) {
+      entranceAnimation();
+    }
+  }, [entranceAnimation, preloaderComplete]);
 
   return (
     <section>
@@ -45,19 +35,20 @@ const Hero: FC = () => {
           <div className="container !max-w-full">
             <motion.h1
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={preloaderComplete ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               className="text-5xl md:text-6xl lg:text-7xl mt-40 md:mt-0"
               ref={scope}
             >
               Crafting digital experiences through code and creative design
             </motion.h1>
-            <div className="flex flex-col md:flex-row md:items-center items-start gap-6  mt-10">
+            <div className="flex flex-col md:flex-row md:items-center items-start gap-6 mt-10">
               <motion.div
                 initial={{ opacity: 0, y: "100%" }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: "100%" }}
                 transition={{
                   duration: 0.5,
-                  delay: 1.75,
+                  delay: preloaderComplete ? 1.75 : 0,
                 }}
               >
                 <Button
@@ -102,10 +93,10 @@ const Hero: FC = () => {
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: "100%" }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: "100%" }}
                 transition={{
                   duration: 0.5,
-                  delay: 2.2,
+                  delay: preloaderComplete ? 2.2 : 0,
                 }}
               >
                 <Button variant="text">Let&apos;s Talk</Button>
@@ -115,13 +106,16 @@ const Hero: FC = () => {
         </div>
         <div className="md:col-span-5 relative">
           <motion.div
+            initial={{ opacity: 0 }}
+            animate={preloaderComplete ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-20 md:mt-0 md:size-full md:absolute md:right-0 max-md:!w-full "
             style={{
               width: portraitWidth,
             }}
           >
             <Image
-              className="size-full  object-cover"
+              className="size-full object-cover"
               src={heroImage}
               alt="hero"
             />

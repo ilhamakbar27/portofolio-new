@@ -5,14 +5,14 @@ import { opacity, slideUp } from "@/hooks/anim";
 
 const words = [
   "Hello",
-  
+  "Привет",
   "Bonjour",
   "Ciao",
   "Olà",
   "やあ",
   "Hallå",
   "Guten tag",
-  "Hallo",
+  "ٱلسَّلَامُ عَلَيْكُمْ"
 ];
 
 export default function Index() {
@@ -29,7 +29,7 @@ export default function Index() {
       () => {
         setIndex(index + 1);
       },
-      index == 0 ? 1000 : 150
+      index == 0 ? 1000 : 150,
     );
   }, [index]);
 

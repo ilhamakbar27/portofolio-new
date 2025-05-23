@@ -1,4 +1,5 @@
 "use client";
+import BlogPreview from "@/sections/BlogPreview";
 import FAQs from "@/sections/FAQs";
 import Footer from "@/sections/Footer";
 import Header from "@/sections/Header";
@@ -12,24 +13,32 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [preloaderComplete, setPreloaderComplete] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
-      document.body.style.cursor = "default";
+
+      // Add a small delay to ensure smooth transition
+      setTimeout(() => {
+        setPreloaderComplete(true);
+      }, 300);
     }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" onExitComplete={() => setPreloaderComplete(true)}>
         {isLoading && <Preloader />}
       </AnimatePresence>
+
       <Header />
-      <Hero />
+      <Hero preloaderComplete={preloaderComplete} />
       <Intro />
-   
       <Projects />
+      <BlogPreview/>
       <Testimonials />
       <FAQs />
       <Footer />
