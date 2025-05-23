@@ -6,6 +6,7 @@ import Image from "next/image";
 import Button from "@/components/button";
 import { motion, useScroll, useTransform } from "motion/react";
 import useTextReveal from "@/hooks/useTextReveal";
+import { useTranslations } from "next-intl";
 
 interface HeroProps {
   preloaderComplete?: boolean;
@@ -20,6 +21,7 @@ const Hero: FC<HeroProps> = ({ preloaderComplete = true }) => {
   const portraitWidth = useTransform(scrollYProgress, [0, 1], ["100%", "240%"]);
 
   const { scope, entranceAnimation } = useTextReveal();
+  const t = useTranslations("HomePage");
 
   useEffect(() => {
     // Only trigger entrance animation when preloader is complete
@@ -40,12 +42,16 @@ const Hero: FC<HeroProps> = ({ preloaderComplete = true }) => {
               className="text-5xl md:text-6xl lg:text-7xl mt-40 md:mt-0"
               ref={scope}
             >
-              Crafting digital experiences through code and creative design
+              {t("hero")}
             </motion.h1>
             <div className="flex flex-col md:flex-row md:items-center items-start gap-6 mt-10">
               <motion.div
                 initial={{ opacity: 0, y: "100%" }}
-                animate={preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: "100%" }}
+                animate={
+                  preloaderComplete
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: "100%" }
+                }
                 transition={{
                   duration: 0.5,
                   delay: preloaderComplete ? 1.75 : 0,
@@ -88,12 +94,16 @@ const Hero: FC<HeroProps> = ({ preloaderComplete = true }) => {
                     </div>
                   }
                 >
-                  <span>View my work</span>
+                  <span>{t("button-hero")}</span>
                 </Button>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: "100%" }}
-                animate={preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: "100%" }}
+                animate={
+                  preloaderComplete
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: "100%" }
+                }
                 transition={{
                   duration: 0.5,
                   delay: preloaderComplete ? 2.2 : 0,

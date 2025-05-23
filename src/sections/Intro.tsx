@@ -1,6 +1,7 @@
 "use client";
 import useTextReveal from "@/hooks/useTextReveal";
 import { useInView } from "motion/react";
+import { useTranslations } from "next-intl";
 import { FC, useEffect, useRef } from "react";
 
 const Intro: FC = () => {
@@ -9,7 +10,7 @@ const Intro: FC = () => {
   const inView = useInView(scope, {
     once: true,
   });
-
+  const t = useTranslations("HomePage");
   useEffect(() => {
     if (inView) {
       entranceAnimation();
@@ -24,8 +25,7 @@ const Intro: FC = () => {
     >
       <div className="container">
         <h2 ref={scope} className="text-4xl md:text-7xl lg:w-[80%] lg:text-8xl">
-          Building beautiful websites with clean code and thoughful design to
-          help your bussiness grow and stand out online
+          {t("intro")}
         </h2>
       </div>
     </section>

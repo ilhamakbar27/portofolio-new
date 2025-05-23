@@ -1,3 +1,5 @@
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { FC, useEffect, useRef, useState } from "react";
@@ -198,7 +200,7 @@ const BlogPreview: FC = () => {
               No blog posts yet
             </h3>
             <p className="text-stone-500 max-w-md mx-auto">
-              Blog posts will appear here once they're published.
+              Blog posts will appear here once they&apos;re published.
             </p>
           </div>
         )}

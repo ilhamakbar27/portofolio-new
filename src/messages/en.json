@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "hero": "Crafting digital experiences through code and creative design",
+    "button-hero": "View my work",
+    "button-contact-hero": "Let's talk",
+    "intro": "Building beautiful websites with clean code and thoughful design to help your bussiness grow and stand out online",
+    "selected-projects": "Selected projects"
+  },
+
+  "BlogPage": {
+    "title": "Blog"
+  }
+}

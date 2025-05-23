@@ -5,12 +5,15 @@ import Image from "next/image";
 import { motion, useInView } from "motion/react";
 import Link from "next/link";
 import { projectsData } from "@/data/projects";
+import { useTranslations } from "next-intl";
+
 
 const Projects: FC = () => {
   const titleRef = useRef(null);
   const buttonRef = useRef(null);
   const isInView = useInView(titleRef, { once: true, margin: "-100px" });
   const isButtonInView = useInView(buttonRef, { once: true, margin: "-100px" });
+  const t = useTranslations("HomePage");
 
   return (
     <section id="projects" className="py-24 md:py-32 lg:py-40">
@@ -27,7 +30,7 @@ const Projects: FC = () => {
             }}
             transition={{ duration: 0.8 }}
           >
-            Selected Projects
+            {t("selected-projects")}
           </motion.span>
         </h2>
 

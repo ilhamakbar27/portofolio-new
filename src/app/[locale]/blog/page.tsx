@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-
-
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +9,8 @@ import Header from "@/sections/Header";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import { motion } from "motion/react";
-import { internalGroqTypeReferenceTo, Post } from "../../../sanity.types";
+import { internalGroqTypeReferenceTo, Post } from "../../../../sanity.types";
+import { useTranslations } from "next-intl";
 
 // Function to format dates
 function formatDate(dateString: string) {
@@ -45,6 +44,7 @@ export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, ] = useState(null);
+  const t = useTranslations("BlogPage");
 
   const query = `*[_type == "post"] | order(publishedAt desc) {
       _id,
@@ -90,7 +90,7 @@ export default function BlogPage() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-5xl md:text-7xl lg:text-8xl mb-12 font-light"
           >
-            Blog
+            {t("title")}
           </motion.h1>
 
           {loading ? (
