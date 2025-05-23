@@ -43,7 +43,7 @@ const PostSkeleton = () => (
 export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, ] = useState(null);
+  const [error] = useState(null);
   const t = useTranslations("BlogPage");
 
   const query = `*[_type == "post"] | order(publishedAt desc) {
@@ -66,7 +66,7 @@ export default function BlogPage() {
       } catch (error) {
         console.log("Post Fetching error", error);
         // setError(error);
-        
+
         setLoading(false);
       }
     };
@@ -204,17 +204,17 @@ export default function BlogPage() {
                         {post.categories?.map((category: any) => (
                           <span
                             key={category._key}
-                            className="text-xs  py-1  uppercase tracking-wider text-blue-600"
+                            className="text-sm  py-1  font-normal uppercase tracking-wide text-red-orange-500"
                           >
                             {category.title}
                           </span>
                         ))}
                       </div>
 
-                      <h2 className="text-2xl md:text-3xl font-light mb-3 transition-colors">
+                      <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-3 transition-colors">
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="hover:text-blue-500"
+                          className="hover:text-red-orange-500"
                         >
                           {post.title}
                         </Link>
@@ -240,7 +240,7 @@ export default function BlogPage() {
                       <div className="mt-5">
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="inline-flex items-center text-blue-500 hover:text-blue-700 transition-colors group-hover:underline"
+                          className="inline-flex items-center text-red-orange-500 hover:text-red-orange-500 transition-colors group-hover:underline"
                         >
                           Read more
                           <svg

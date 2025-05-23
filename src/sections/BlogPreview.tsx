@@ -76,7 +76,7 @@ const BlogPreview: FC = () => {
           >
             <Link
               href="/blog"
-              className="group inline-flex items-center text-xl"
+              className="group inline-flex max-md:mt-3 items-center text-xl"
             >
               <span className="mr-2 relative">
                 View all posts
@@ -157,7 +157,7 @@ const BlogPreview: FC = () => {
                   <div>
                     {post.categories && post.categories.length > 0 && (
                       <div className="mb-2">
-                        <span className="text-sm text-blue-600 uppercase tracking-wider">
+                        <span className="text-sm text-red-orange-500 uppercase tracking-wide">
                           {post.categories[0]}
                         </span>
                       </div>

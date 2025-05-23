@@ -236,15 +236,15 @@ const Header: FC = () => {
           ))}
         </nav>
       </div>
-      <div className="fixed top-0 z-10 left-0 w-full mix-blend-difference backdrop-blur-md">
+      <div className="fixed top-0 z-10 left-0 w-full mix-blend-difference md:backdrop-blur-md max-md:bg-black/50 ">
         <div className="container !max-w-full">
           <div className="flex justify-between h-20 items-center">
-            <div>
-              <a href="/">
-                <span className="text-xl font-bold text-white uppercase">
+            <div className="cursor-pointer">
+              <Link href="/">
+                <span className="text-xl cursor-pointer font-bold text-white uppercase">
                   Ilham akbar
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

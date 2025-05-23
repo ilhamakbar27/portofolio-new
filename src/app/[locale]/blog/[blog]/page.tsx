@@ -207,14 +207,14 @@ export default function BlogPage() {
                     {post?.categories?.map((category: any) => (
                       <span
                         key={category._id}
-                        className="text-xs   uppercase tracking-wider text-blue-600"
+                        className="text-sm  uppercase tracking-wide text-red-orange-500"
                       >
                         {category.title}
                       </span>
                     ))}
                   </div>
 
-                  <h1 className="text-4xl md:text-5xl font-light mb-6">
+                  <h1 className="text-4xl md:text-5xl tracking-tight font-medium mb-6">
                     {post?.title}
                   </h1>
 
@@ -231,7 +231,7 @@ export default function BlogPage() {
                       )}
                       <div>
                         <p className="font-medium">
-                          {post?.author?.name || "Unknown Author"}
+                          {post?.author?.name || "Ilham Akbar"}
                         </p>
                         <time
                           dateTime={post?.publishedAt || ""}
